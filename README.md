@@ -145,10 +145,17 @@ sudo pip3 install jupyter
 
 ## Download pre-built ResNet-50 model from NVIDIA
 
-Download and extract TensorRT samples. Here we use pre-built ResNet-50 classification graph.
+Download and extract TensorRT samples. Copy pre-built ResNet-50 classification graph (resnetV150_frozen.pb).
 
 ```bash
 wget https://developer.download.nvidia.com/devblogs/tftrt_sample.tar.xz
 tar xvf tftrt_sample.tar.xz
 cp tftrt/resnetV150_frozen.pb .
 ```
+
+## Run
+
+Open tftensorrt.ipynb with Jupyter notebook and run !
+
+See [my blog post](https://tsmatz.wordpress.com/2018/07/06/tensorflow-tensorrt-by-python-on-azure) for details.
+
