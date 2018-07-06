@@ -157,5 +157,5 @@ cp tftrt/resnetV150_frozen.pb .
 
 Open tftensorrt.ipynb with Jupyter notebook and run !
 
-See [my blog post](https://tsmatz.wordpress.com/2018/07/06/tensorrt-tensorflow-python-on-azure-tutorial/) for details.
+See [my blog post](https://tsmatz.wordpress.com/2018/07/07/tensorrt-tensorflow-python-on-azure-tutorial/) for details.
 
