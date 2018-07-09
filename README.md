@@ -1,4 +1,4 @@
-# Realtime Inference by TensorRT on Azure
+# Speed up Inference by TensorRT on Azure
 
 Tested with the following platform :
 
