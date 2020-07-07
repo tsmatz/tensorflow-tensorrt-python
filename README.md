@@ -53,8 +53,8 @@ sudo reboot
 Add following lines in .bashrc.
 
 ```bash
-echo 'export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+echo 'export PATH=/usr/local/cuda-9.0/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
 ```
 
 Read new settings and verify whether if you can use CUDA toolkit. (GPU info is displayed.)
