@@ -32,7 +32,7 @@ sudo apt install python3-pip
 sudo apt-get install linux-headers-$(uname -r)
 ```
 
-5. Install CUDA 9.0 Toolkit
+5. Install CUDA 9.0 Toolkit (Go to [here](https://developer.nvidia.com/cuda-toolkit-archive))
 
 ```bash
 wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
@@ -76,7 +76,7 @@ sudo ldconfig
 
 9. Install cuDNN 7.1
 
-First you must download the following 3 files from NVIDIA.
+First you must download the following 3 files from [here](https://developer.nvidia.com/rdp/cudnn-download).
 
 - libcudnn7_7.1.4.18-1+cuda9.0_amd64.deb
 - libcudnn7-dev_7.1.4.18-1+cuda9.0_amd64.deb
