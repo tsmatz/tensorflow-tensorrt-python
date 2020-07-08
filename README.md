@@ -130,7 +130,7 @@ Verify TensorFlow installation.
 python3
 >>> import tensorflow as tf
 >>> test = tf.constant('test')
->>> sess = tf.Session()
+>>> sess = tf.Session() # GPU is attached here !
 >>> sess.run(test)
 b'test'
 >>> quit()
