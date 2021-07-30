@@ -1,149 +1,123 @@
-# Speed up Inference by TensorRT on Azure
+# Speed up Inference by TensorRT
 
-Tested with the following platform :
+This example shows how to run inferencing on TensorRT.
 
-- Virtual Machines : Azure NC series (NVIDIA K80), NC v3 series (NVIDIA V100 - Volta architecture)
-- Operating systems : Ubuntu 16.04
-- CUDA 9.0 with cuDNN 7.1.3
-- Python 3.5.2
-- TensorFlow 1.8
-- TensorRT 4.0.1.6
+1. [TensorRT Inferencing with ONNX Conversion](./tf_onnx_convert.ipynb)
+2. [TensorFlow TensorRT Integration (TF-TRT)](./tf_trt_integration.ipynb)
+
+Example 1 is tested with the following environment :
+
+- Virtual Machines : Azure Standard NC6_Promo (NVIDIA Tesla K80)
+- Operating systems : Ubuntu 18.04
+- CUDA 11.3 with cuDNN 8.2
+- Python 3.6
+- TensorFlow 1.15.5
+- TensorRT 8.0
+
+To run example 2, you need TensorRT 5.x.
+
+I'll show you how to set up environment for example 1.
 
 ## How to setup and install
 
-Azure Data Science Virtual Machine (DSVM) includes TensorRT (see [here](https://docs.microsoft.com/fi-FI/azure/machine-learning/data-science-virtual-machine/dsvm-deep-learning-ai-frameworks#tensorrt)), but here I use TensorFlow-TensorRT integration with python (which needs TensorFlow 1.7 or later). For this reason, here we use plain Ubuntu LTS and install drivers by ourselves.
+1. Create Ubuntu 18.04 LTS on Standard NC6_Promo in Microsoft Azure.
 
-1. Create Ubuntu 16.06 LTS on NC or NCv3 instance in Azure.
+> Note : Python 3.6 is already installed in this virtual machine.
 
-2. Login
-
-3. Update and upgrade your system
+2. Install build tools (or build-essential).
 
 ```bash
 sudo apt-get update
-sudo apt-get upgrade
-# python 2 / 3 is already installed ...
-sudo apt install python3-pip
+sudo apt install gcc
+sudo apt-get install make
 ```
 
-4. Install linux kernel header
+3. Download and install CUDA.
 
 ```bash
-sudo apt-get install linux-headers-$(uname -r)
-```
+# Install CUDA
+wget https://developer.download.nvidia.com/compute/cuda/11.3.1/local_installers/cuda_11.3.1_465.19.01_linux.run
+sudo sh cuda_11.3.1_465.19.01_linux.run
 
-5. Install CUDA 9.0 Toolkit (Go to [here](https://developer.nvidia.com/cuda-toolkit-archive))
-
-```bash
-wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
-sudo apt-get update
-sudo apt-get install cuda-9.0
-```
-
-6. Restart
-
-```bash
-sudo reboot
-```
-
-7. Change .bashrc
-
-Add following lines in .bashrc.
-
-```bash
-echo 'export PATH=/usr/local/cuda-9.0/bin:$PATH' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-```
-
-Read new settings and verify whether if you can use CUDA toolkit. (GPU info is displayed.)
-
-```bash
+# Set PATH and LD_LIBRARY_PATH for CUDA
+echo 'export PATH=/usr/local/cuda-11.3/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.3/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
 source ~/.bashrc
-sudo ldconfig
+```
+
+4. Verify whether CUDA is correctly installed. (GPU will be detected by the following command.)
+
+```bash
 nvidia-smi
 ```
 
-8. Install and set dependencies
+5. Download cuDNN (runtime, dev, and samples) from NVIDIA developer site.<br>
+[https://developer.nvidia.com/cudnn](https://developer.nvidia.com/cudnn)<br>
+And install the downloaded packages as follows.
 
 ```bash
-sudo apt-get install libcupti-dev
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
-source ~/.bashrc
-sudo ldconfig
+sudo dpkg -i libcudnn8_8.2.1.32-1+cuda11.3_amd64.deb
+sudo dpkg -i libcudnn8-dev_8.2.1.32-1+cuda11.3_amd64.deb
+sudo dpkg -i libcudnn8-samples_8.2.1.32-1+cuda11.3_amd64.deb
 ```
 
-9. Install cuDNN 7.1
-
-First you must download the following 3 files from [here](https://developer.nvidia.com/rdp/cudnn-download).
-
-- libcudnn7_7.1.4.18-1+cuda9.0_amd64.deb
-- libcudnn7-dev_7.1.4.18-1+cuda9.0_amd64.deb
-- libcudnn7-doc_7.1.4.18-1+cuda9.0_amd64.deb
-
-Install these files.
+6. Update PIP.
 
 ```bash
-sudo dpkg -i libcudnn7_7.1.4.18-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-dev_7.1.4.18-1+cuda9.0_amd64.deb
-sudo dpkg -i libcudnn7-doc_7.1.4.18-1+cuda9.0_amd64.deb
-```
-
-Verify whether if cuDNN is correctly installed. (It shows "Test passed!" if succeeded.)
-
-```bash
-cp -r /usr/src/cudnn_samples_v7/ $HOME
-cd $HOME/cudnn_samples_v7/mnistCUDNN
-make clean && make
-./mnistCUDNN
-cd
-```
-
-10. Restart
-
-```bash
-sudo reboot
-```
-
-11. Setup TensorRT for TensorFlow-TensorRT integration
-
-```bash
-wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvinfer-runtime-trt-repo-ubuntu1604-4.0.1-ga-cuda9.0_1-1_amd64.deb
-sudo dpkg -i nvinfer-runtime-trt-repo-ubuntu1604-4.0.1-ga-cuda9.0_1-1_amd64.deb
 sudo apt-get update
-sudo apt-get install -y --allow-downgrades libnvinfer-dev libcudnn7-dev=7.1.4.18-1+cuda9.0 libcudnn7=7.1.4.18-1+cuda9.0
+sudo apt-get -y install python3-pip
+sudo -H pip3 install --upgrade pip
 ```
 
-12. Install TensorFlow 1.8
+7. For preparation of TensorRT installation, add NVIDIA package repository.
 
 ```bash
-sudo apt-mark hold libcudnn7 libcudnn7-dev
-wget https://files.pythonhosted.org/packages/f2/fa/01883fee1cdb4682bbd188edc26da5982c459e681543bb7f99299fca8800/tensorflow_gpu-1.8.0-cp35-cp35m-manylinux1_x86_64.whl
-pip3 install tensorflow_gpu-1.8.0-cp35-cp35m-manylinux1_x86_64.whl
-sudo apt-mark unhold libcudnn7 libcudnn7-dev
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+sudo apt-get update
 ```
 
-Verify TensorFlow installation.
+8. Install TensorRT.
 
 ```bash
-python3
->>> import tensorflow as tf
->>> test = tf.constant('test')
->>> sess = tf.Session() # GPU is attached here !
->>> sess.run(test)
-b'test'
->>> quit()
+# TensorRT 8.0.1.6 Installation
+os="ubuntu1804"
+tag="cuda11.3-trt8.0.1.6-ga-20210626"
+sudo dpkg -i nv-tensorrt-repo-${os}-${tag}_1-1_amd64.deb
+sudo apt-key add /var/nv-tensorrt-repo-${os}-${tag}/7fa2af80.pub
+sudo apt-get update
+sudo apt-get install tensorrt
+# In this example, we need the following module as well
+sudo apt-get install python3-libnvinfer-dev
 ```
 
-13. Install Jupyter notebook
+9. Verify the TensorRT installation as follows
 
 ```bash
-sudo apt-get -y install ipython ipython-notebook
-sudo pip3 install jupyter
+dpkg -l | grep TensorRT
 ```
 
-## Download pre-built ResNet-50 model from NVIDIA
+10. Install the required Python packages in this example.
+
+```bash
+pip3 install numpy tensorflow-gpu==1.15.5 tf2onnx==1.8.2 pycuda protobuf==3.16.0 onnx matplotlib
+```
+
+11. Install Jupyter.
+
+```bash
+pip3 install jupyter
+```
+
+12. Download samples.
+
+```bash
+git clone https://github.com/tsmatz/tensorflow-tensorrt-python.git
+```
+
+## Download pre-built ResNet50 model from NVIDIA
 
 Download and extract TensorRT samples. Copy pre-built ResNet-50 classification graph (resnetV150_frozen.pb).
 
@@ -155,7 +129,7 @@ cp tftrt/resnetV150_frozen.pb .
 
 ## Run
 
-Open tftensorrt.ipynb with Jupyter notebook and run !
+Open [tf_onnx_convert.ipynb](./tf_onnx_convert.ipynb) with Jupyter notebook and run !
 
 See [my blog post](https://tsmatz.wordpress.com/2018/07/07/tensorrt-tensorflow-python-on-azure-tutorial/) for details.
 
