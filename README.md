@@ -94,6 +94,8 @@ sudo apt-get install tensorrt
 sudo apt-get install python3-libnvinfer-dev
 ```
 
+> Note : By installing ```python3-libnvinfer-dev```, TensorRT python package (including ```tensorrt```) will also be installed in your Python3 environment. (When you use conda environments, please manually install pip wheel in each environments.)
+
 9. Verify the TensorRT installation as follows
 
 ```bash
