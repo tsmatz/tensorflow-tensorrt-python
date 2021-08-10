@@ -23,9 +23,15 @@ I'll show you how to set up environment for example 1.
 1. Create Ubuntu 18.04 LTS on Standard NC4as T4 v3 in Microsoft Azure.
 
 > Note : To run Tesla T4 instance (VM), please increase (request) quota in your Azure subscription.<br>
-> Python 3.6 is already installed in this virtual machine.
 
-2. Install build tools (or build-essential).
+2. Python 3.6 is already installed in this virtual machine.<br>
+Login to this VM and check the version of Python as follows.
+
+```bash
+python3 -V
+```
+
+3. Install build tools (or build-essential).
 
 ```bash
 sudo apt-get update
@@ -33,7 +39,7 @@ sudo apt install gcc
 sudo apt-get install make
 ```
 
-3. Download and install CUDA.
+4. Download and install CUDA.
 
 ```bash
 # Install CUDA
@@ -46,13 +52,13 @@ echo 'export LD_LIBRARY_PATH=/usr/local/cuda-11.3/lib64:$LD_LIBRARY_PATH' >> ~/.
 source ~/.bashrc
 ```
 
-4. Verify whether CUDA is correctly installed. (GPU will be detected by the following command.)
+5. Verify whether CUDA is correctly installed. (GPU will be detected by the following command.)
 
 ```bash
 nvidia-smi
 ```
 
-5. Download cuDNN (runtime, dev, and samples) from NVIDIA developer site.<br>
+6. Download cuDNN (runtime, dev, and samples) from NVIDIA developer site.<br>
 [https://developer.nvidia.com/cudnn](https://developer.nvidia.com/cudnn)<br>
 And install the downloaded packages as follows.
 
@@ -62,7 +68,7 @@ sudo dpkg -i libcudnn8-dev_8.2.1.32-1+cuda11.3_amd64.deb
 sudo dpkg -i libcudnn8-samples_8.2.1.32-1+cuda11.3_amd64.deb
 ```
 
-6. Update PIP.
+7. Update PIP.
 
 ```bash
 sudo apt-get update
@@ -70,7 +76,7 @@ sudo apt-get -y install python3-pip
 sudo -H pip3 install --upgrade pip
 ```
 
-7. For preparation of TensorRT installation, add NVIDIA package repository.
+8. For preparation of TensorRT installation, add NVIDIA package repository.
 
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -80,7 +86,7 @@ sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/
 sudo apt-get update
 ```
 
-8. See [installation guide](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html) and install TensorRT.<br>
+9. See [installation guide](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html) and install TensorRT.<br>
 Here I have downloaded TensorRT 8.0 local repo file (```nv-tensorrt-repo-ubuntu1804-cuda11.3-trt8.0.1.6-ga-20210626_1-1_amd64.deb```) and installed as follows.
 
 ```bash
@@ -97,25 +103,25 @@ sudo apt-get install python3-libnvinfer-dev
 
 > Note : By installing ```python3-libnvinfer-dev```, TensorRT python package (including ```tensorrt```) will also be installed in your Python3 environment. (When you use conda environments, please manually install pip wheel in each environments.)
 
-9. Verify the TensorRT installation as follows
+10. Verify the TensorRT installation as follows
 
 ```bash
 dpkg -l | grep TensorRT
 ```
 
-10. Install the required Python packages in this example.
+11. Install the required Python packages in this example.
 
 ```bash
 pip3 install numpy tensorflow-gpu==1.15.5 tf2onnx==1.8.2 pycuda protobuf==3.16.0 onnx matplotlib
 ```
 
-11. Install Jupyter.
+12. Install Jupyter.
 
 ```bash
 pip3 install jupyter
 ```
 
-12. Download samples.
+13. Download samples.
 
 ```bash
 git clone https://github.com/tsmatz/tensorflow-tensorrt-python.git
