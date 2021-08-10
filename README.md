@@ -7,7 +7,7 @@ This example shows how to run inferencing on TensorRT.
 
 Example 1 is tested with the following environment :
 
-- Virtual Machines : Azure Standard NC6_Promo (NVIDIA Tesla K80)
+- Virtual Machines : Azure Standard NC4as T4 v3 (NVIDIA Tesla T4)
 - Operating systems : Ubuntu 18.04
 - CUDA 11.3 with cuDNN 8.2
 - Python 3.6
@@ -20,7 +20,7 @@ I'll show you how to set up environment for example 1.
 
 ## How to setup and install
 
-1. Create Ubuntu 18.04 LTS on Standard NC6_Promo in Microsoft Azure.
+1. Create Ubuntu 18.04 LTS on Standard NC4as T4 v3 in Microsoft Azure.
 
 > Note : Python 3.6 is already installed in this virtual machine.
 
