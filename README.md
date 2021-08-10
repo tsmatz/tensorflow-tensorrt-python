@@ -22,7 +22,8 @@ I'll show you how to set up environment for example 1.
 
 1. Create Ubuntu 18.04 LTS on Standard NC4as T4 v3 in Microsoft Azure.
 
-> Note : Python 3.6 is already installed in this virtual machine.
+> Note : To run Tesla T4 instance (VM), please increase (request) quota in your Azure subscription.<br>
+> Python 3.6 is already installed in this virtual machine.
 
 2. Install build tools (or build-essential).
 
