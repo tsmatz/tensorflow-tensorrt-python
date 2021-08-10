@@ -24,7 +24,7 @@ I'll show you how to set up environment for example 1.
 
 > Note : To run Tesla T4 instance (VM), please increase (request) quota in your Azure subscription.<br>
 
-2. Python 3.6 is already installed in this virtual machine.<br>
+2. Python 3.6 is already installed in this virtual machine (VM).<br>
 Login to this VM and check the version of Python as follows.
 
 ```bash
