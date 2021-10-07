@@ -124,7 +124,7 @@ pip3 install jupyter
 13. Download samples.
 
 ```bash
-git clone https://github.com/tsmatz/tensorflow-tensorrt-python.git
+git clone https://github.com/tsmatz/tensorflow-tensorrt-python
 ```
 
 ## Download pre-built ResNet50 model from NVIDIA
