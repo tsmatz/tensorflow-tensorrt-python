@@ -16,7 +16,7 @@ Example 1 is tested with the following environment :
 
 To run example 2, you need TensorRT 5.x.
 
-I'll show you how to set up environment for example 1.
+I'll show you how to set up environment for example 1 as follows.
 
 ## How to setup and install
 
