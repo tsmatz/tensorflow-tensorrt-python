@@ -104,15 +104,15 @@ sudo dpkg -i nv-tensorrt-repo-${os}-${tag}_1-1_amd64.deb
 sudo apt-key add /var/nv-tensorrt-repo-${os}-${tag}/*.pub
 sudo apt-get update
 
-# Install TensorRT and dependencies
+# Install TensorRT (latest version) and dependencies
 sudo apt-get install tensorrt
-# In this example, we need the following module as well
+# In this example, we need the following module (latest version) as well
 sudo apt-get install python3-libnvinfer-dev
 ```
 
 > Note : By installing ```python3-libnvinfer-dev```, TensorRT python package (including ```tensorrt```) will also be installed in your Python3 environment. (When you use conda environments, please manually install pip wheel in each environments.)
 
-When you install old version of TensorRT, install specific version and all dependencies as follows.
+When you install old version of TensorRT instead, install specific version and all dependencies as follows.
 
 ```bash
 sudo apt-get install libnvinfer8=8.0.1-1+cuad11.3 \
