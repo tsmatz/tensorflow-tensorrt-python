@@ -39,7 +39,7 @@ sudo apt install -y gcc
 sudo apt-get install -y make
 ```
 
-4. See the following site and check the supported TensorRT version and corresponding CUDA version in NVIDIA repository.<br>
+4. Go to the following site, and check the supported TensorRT version and corresponding CUDA version in NVIDIA repository.<br>
 In this example, I assume **TensorRT version 8.0** and **CUDA version 11.3**. (```tensorrt_8.0.1.6-1+cuda11.3_amd64.deb``` package)
 
 [https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/](https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/)
@@ -84,10 +84,10 @@ sudo -H pip3 install --upgrade pip
 9. For preparation of TensorRT installation, add NVIDIA package repository.
 
 ```bash
-# install key
+# Install key
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-keyring_1.0-1_all.deb
 sudo dpkg -i cuda-keyring_1.0-1_all.deb
-# add NVIDIA repository
+# Add NVIDIA repository
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
 sudo apt-get update
 ```
@@ -97,12 +97,14 @@ Here I have downloaded TensorRT 8.0 local repo file (```nv-tensorrt-repo-ubuntu1
 I note that the following command will install the latest version of TensorRT in NVIDIA repository.
 
 ```bash
-# TensorRT 8.0.1.6 Installation
+# Setup for installation
 os="ubuntu1804"
 tag="cuda11.3-trt8.0.1.6-ga-20210626"
 sudo dpkg -i nv-tensorrt-repo-${os}-${tag}_1-1_amd64.deb
 sudo apt-key add /var/nv-tensorrt-repo-${os}-${tag}/*.pub
 sudo apt-get update
+
+# Install TensorRT and dependencies
 sudo apt-get install tensorrt
 # In this example, we need the following module as well
 sudo apt-get install python3-libnvinfer-dev
@@ -127,10 +129,10 @@ sudo apt-get install libnvinfer8=8.0.1-1+cuad11.3 \
 sudo apt-get install python3-libnvinfer-dev=8.0.1-1+cuda11.3
 ```
 
-> Note : The following command will show all dependecies.<br>
+> Note : The following command will show all dependecies for TensorRT installation.<br>
 > ```sudo apt-get install tensorrt=8.0.1.6-1+cuda11.3```
 
-11. Verify the TensorRT installation as follows. (Especially, check version of installed libraries.)
+11. Verify the TensorRT installation as follows. (Especially, check if the correct version of libraries are installed.)
 
 ```bash
 dpkg -l | grep TensorRT
