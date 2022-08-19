@@ -139,7 +139,8 @@ sudo apt-get install python3-libnvinfer=8.0.1-1+cuda11.3 \
 ```
 
 > Note : The following command will show all dependecies for TensorRT installation.<br>
-> ```sudo apt-get install tensorrt=8.0.1.6-1+cuda11.3```
+> ```sudo apt-get install tensorrt=8.0.1.6-1+cuda11.3```<br>
+> ```sudo apt-get install python3-libnvinfer-dev=8.0.1-1+cuda11.3```
 
 11. Verify the TensorRT installation as follows. (Especially, check if the correct version of packages are installed.)
 
