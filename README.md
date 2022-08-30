@@ -117,8 +117,6 @@ When you install old version of TensorRT instead, install specific version and a
 ```bash
 # Install libnvinfer8 and dependencies
 sudo apt-get install libnvinfer8=8.0.1-1+cuad11.3 \
-  libcudnn8=8.2.1.32-1+cuda11.3 \
-  libcudnn8-dev=8.2.1.32-1+cuda11.3 \
   libnvinfer-plugin8=8.0.1-1+cuad11.3 \
   libnvparsers8=8.0.1-1+cuad11.3 \
   libnvonnxparsers8=8.0.1-1+cuad11.3 \
@@ -144,7 +142,9 @@ sudo apt-get install python3-libnvinfer=8.0.1-1+cuda11.3 \
 
 > Note : The following command will show all dependecies for TensorRT installation.<br>
 > ```sudo apt-get install tensorrt=8.0.1.6-1+cuda11.3```<br>
-> ```sudo apt-get install python3-libnvinfer-dev=8.0.1-1+cuda11.3```
+> ```sudo apt-get install python3-libnvinfer-dev=8.0.1-1+cuda11.3```<br>
+> When you don't setup cuDNN, please add the following packages previously.<br>
+> ```sudo apt-get install libcudnn8=8.2.1.32-1+cuda11.3 libcudnn8-dev=8.2.1.32-1+cuda11.3```
 
 11. Verify the TensorRT installation as follows. (Especially, check if the correct version of packages are installed.)
 
