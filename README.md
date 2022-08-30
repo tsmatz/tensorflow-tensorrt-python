@@ -115,7 +115,7 @@ sudo apt-get install python3-libnvinfer-dev
 When you install old version of TensorRT instead, install specific version and all dependencies as follows.
 
 ```bash
-# Install libnvinfer8 and dependencies
+# Install TensorRT and dependencies
 sudo apt-get install libnvinfer8=8.0.1-1+cuad11.3 \
   libnvinfer-plugin8=8.0.1-1+cuad11.3 \
   libnvparsers8=8.0.1-1+cuad11.3 \
