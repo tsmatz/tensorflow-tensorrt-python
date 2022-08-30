@@ -127,7 +127,7 @@ sudo apt-get install libnvinfer8=8.0.1-1+cuad11.3 \
   libnvonnxparsers-dev=8.0.1-1+cuad11.3 \
   libnvinfer-samples=8.0.1-1+cuad11.3 \
   tensorrt=8.0.1.6-1+cuda11.3
-# Install python3-libnvinfer and dependencies
+# Install python3-libnvinfer-dev and dependencies
 sudo apt-get install python3-libnvinfer=8.0.1-1+cuda11.3 \
   libnvinfer8=8.0.1-1+cuda11.3 \
   libnvinfer-dev=8.0.1-1+cuda11.3 \
