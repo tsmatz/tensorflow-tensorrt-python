@@ -20,9 +20,10 @@ I'll show you how to set up environment for example 1 as follows.
 
 ## How to setup and install
 
-1. Create Ubuntu Server 18.04 LTS on Standard NC4as T4 v3 in Microsoft Azure.
+1. Create Ubuntu Server 18.04 LTS on Standard NC4as T4 v3 in Microsoft Azure.<br>
+To run Tesla T4 instance (VM), please increase (request) quota in your Azure subscription.
 
-> Note : To run Tesla T4 instance (VM), please increase (request) quota in your Azure subscription.<br>
+> Note : You can also use [NVIDIA GPU-optimized VMI](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/nvidia.ngc_azure_17_11), in which NVIDIA drivers are already configured.
 
 2. Python 3.6 is already installed in this virtual machine (VM).<br>
 Login to this VM and check whether Python 3.6 is installed. (If not, please install Python version 3.6.)
