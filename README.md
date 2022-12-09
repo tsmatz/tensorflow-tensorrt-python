@@ -168,6 +168,7 @@ pip3 install jupyter
 14. Download samples.
 
 ```bash
+sudo apt-get install -y git
 git clone https://github.com/tsmatz/tensorflow-tensorrt-python
 ```
 
